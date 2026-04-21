@@ -73,11 +73,11 @@ Päätä nimesi ennen kuin aloitat. Käytä samoja nimiä koko tehtävän ajan. 
 
 > Jos käytät CLI:tä, aseta myös nämä muuttujat kerralla:
 > ```bash
-> RESOURCE_GROUP="rg-gallery-<etunimi>"
+> RESOURCE_GROUP="rg-gallery-henri"
 > LOCATION="swedencentral"
-> APP_NAME="gallery-api-<etunimi>"
-> STORAGE_ACCOUNT="stgallery<etunimi>"
-> APP_SERVICE_PLAN="plan-gallery-<etunimi>"
+> APP_NAME="gallery-api-henri"
+> STORAGE_ACCOUNT="stgalleryhenri"
+> APP_SERVICE_PLAN="plan-gallery-henri"
 > ```
 
 ---
