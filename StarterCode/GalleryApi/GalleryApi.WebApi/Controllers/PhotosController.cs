@@ -1,6 +1,8 @@
 using GalleryApi.Application.DTOs;
 using GalleryApi.Application.UseCases.Photos;
 using Microsoft.AspNetCore.Mvc;
+using GalleryApi.Application.Common;
+using GalleryApi.Domain.Entities;
 
 namespace GalleryApi.WebApi.Controllers;
 
@@ -32,7 +34,6 @@ public class PhotosController : ControllerBase
 
     /// <summary>
     /// Lataa kuvan albumiin.
-    /// Palauttaa 501 kunnes UploadPhotoUseCase on toteutettu (Vaihe 7).
     /// </summary>
     [HttpPost]
     [Consumes("multipart/form-data")]
@@ -49,17 +50,11 @@ public class PhotosController : ControllerBase
             ContentType: file.ContentType,
             FileSize: file.Length);
 
-        try
-        {
-            var result = await _uploadPhoto.ExecuteAsync(request);
-            if (!result.IsSuccess)
-                return BadRequest(new { Error = result.Error });
-            return CreatedAtAction(nameof(GetByAlbum), new { albumId }, result.Value);
-        }
-        catch (NotImplementedException ex)
-        {
-            return StatusCode(501, new { Error = ex.Message });
-        }
+        var result = await _uploadPhoto.ExecuteAsync(request);
+        if (!result.IsSuccess)
+            return BadRequest(new { Error = result.Error });
+
+        return CreatedAtAction(nameof(GetByAlbum), new { albumId }, result.Value);
     }
 
     /// <summary>

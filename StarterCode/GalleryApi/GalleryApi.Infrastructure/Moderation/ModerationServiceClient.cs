@@ -3,40 +3,19 @@ using Microsoft.Extensions.Options;
 
 namespace GalleryApi.Infrastructure.Moderation;
 
-/// <summary>
-/// Simuloitu sisällöntarkistuspalvelu. Oikeassa sovelluksessa tämä
-/// kutsuisi ulkoista AI-pohjaista moderointipalvelua.
-/// </summary>
 public class ModerationServiceClient
 {
-    private readonly string _apiKey;
+    private readonly ModerationServiceOptions _options;
 
-    // TODO (Vaihe 4): Muuta konstruktori ottamaan IOptions<ModerationServiceOptions> parametrina
-    //   sijaan string apiKey.
-    //
-    // Nykyinen (ONGELMA):
-    //   public ModerationServiceClient(string apiKey) { _apiKey = apiKey; }
-    //
-    // Muutettu (Options Pattern):
-    //   public ModerationServiceClient(IOptions<ModerationServiceOptions> options)
-    //   {
-    //       _apiKey = options.Value.ApiKey;
-    //   }
-    //
-    // Muista muuttaa myös _apiKey-kentän tyyppi (tai poista se ja käytä _options.ApiKey suoraan).
-    public ModerationServiceClient(string apiKey)
+    // Muutettu: ei enää kovakoodattua merkkijonoa
+    public ModerationServiceClient(IOptions<ModerationServiceOptions> options)
     {
-        _apiKey = apiKey;
+        _options = options.Value;
     }
 
-    /// <summary>
-    /// Tarkistaa onko kuvan sisältö turvallinen.
-    /// Simuloitu toteutus — palauttaa aina true.
-    /// </summary>
     public Task<bool> IsContentSafeAsync(Stream imageStream, string contentType)
     {
-        // Simuloitu tarkistus: oikeassa toteutuksessa lähettäisi kuvan
-        // moderointipalvelun API:lle _apiKey:tä käyttäen
+        // Simuloitu tarkistus — käyttäisi _options.ApiKey:ta oikeassa toteutuksessa
         return Task.FromResult(true);
     }
 }
